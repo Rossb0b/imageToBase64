@@ -5,7 +5,7 @@ import * as path from "path";
 // Require External Dependencies
 import fetch from "node-fetch";
 
-// Const
+// Vars
 const imageRegex = new RegExp("\.(gif|jpe?g|tiff?|png|webp|bmp|ico)$", "i");
 
 export interface Image {
