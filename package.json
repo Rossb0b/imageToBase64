@@ -1,5 +1,5 @@
 {
-  "name": "imagetobase64",
+  "name": "@rossbob/image-to-base64",
   "version": "1.0.0",
   "description": "Image file or image url to base64",
   "main": "dist/index.js",
