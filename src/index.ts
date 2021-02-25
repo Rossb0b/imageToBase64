@@ -8,19 +8,27 @@ import fetch from "node-fetch";
 // Const
 const imageRegex = new RegExp("\.(gif|jpe?g|tiff?|png|webp|bmp|ico)$", "i");
 
-interface Image {
+export interface Image {
   path?: string,
   uri?: string,
 }
 
-export async function toBase64(image: Image): Promise<string | undefined> {
+export interface ResponsePayload {
+  base64?: string
+}
+
+export async function toBase64(image: Image): Promise<ResponsePayload> {
+  let base64: string = "";
+
   if (image.uri) {
     const uri = new URL(image.uri!);
+
     try {
       const imageBuffer = await (await fetch(uri)).buffer();
 
-      return imageBuffer.toString('base64');
-    } catch (error) {
+      base64 = imageBuffer.toString('base64');
+    }
+    catch (error) {
       throw new Error(error);
     }
   }
@@ -29,7 +37,8 @@ export async function toBase64(image: Image): Promise<string | undefined> {
 
     try {
       isFile = (await fs.stat(image.path)).isFile();
-    } catch (error) {
+    }
+    catch (error) {
       throw new Error(error);
     }
 
@@ -37,8 +46,9 @@ export async function toBase64(image: Image): Promise<string | undefined> {
       try {
         const imageBuffer = await fs.readFile(path.resolve(image.path));
 
-        return imageBuffer.toString('base64');
-      } catch (error) {
+        base64 = imageBuffer.toString('base64')
+      }
+      catch (error) {
         throw new Error(error);
       }
     }
@@ -46,4 +56,6 @@ export async function toBase64(image: Image): Promise<string | undefined> {
   else {
     throw new Error("Didn\'t get an image or a good uri for the appropriate param");
   }
+
+  return { base64 };
 }
