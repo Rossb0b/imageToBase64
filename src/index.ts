@@ -6,8 +6,7 @@ import * as path from "path";
 import fetch from "node-fetch";
 
 // Const
-const urlRegex = new RegExp('^(([^:/?#]+):)?(//([^/?#]*))?([^?#]*)(\?([^#]*))?(#(.*))?');
-const imageRegex = new RegExp('/\.(gif|jpe?g|tiff?|png|webp|bmp|ico)$/i');
+const imageRegex = new RegExp("\.(gif|jpe?g|tiff?|png|webp|bmp|ico)$", "i");
 
 interface Image {
   path?: string,
@@ -15,9 +14,10 @@ interface Image {
 }
 
 export async function toBase64(image: Image): Promise<string | undefined> {
-  if (image.uri && urlRegex.test(image.uri)) {
+  if (image.uri) {
+    const uri = new URL(image.uri!);
     try {
-      const imageBuffer = await (await fetch(image.uri)).buffer();
+      const imageBuffer = await (await fetch(uri)).buffer();
 
       return imageBuffer.toString('base64');
     } catch (error) {
@@ -44,6 +44,6 @@ export async function toBase64(image: Image): Promise<string | undefined> {
     }
   }
   else {
-    throw new Error("Didn\'t get an image or a good uri");
+    throw new Error("Didn\'t get an image or a good uri for the appropriate param");
   }
 }
