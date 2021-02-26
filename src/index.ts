@@ -1,5 +1,5 @@
 // Require Node Dependencies
-import {promises as fs} from "fs";
+import * as fs from "fs/promises";
 import * as path from "path";
 
 // Require External Dependencies
@@ -29,7 +29,7 @@ export async function toBase64(image: Image): Promise<ResponsePayload> {
       base64 = imageBuffer.toString('base64');
     }
     catch (error) {
-      throw new Error(error);
+      console.error(error);
     }
   }
   else if (image.path && imageRegex.test(image.path)) {
@@ -39,17 +39,17 @@ export async function toBase64(image: Image): Promise<ResponsePayload> {
       isFile = (await fs.stat(image.path)).isFile();
     }
     catch (error) {
-      throw new Error(error);
+      console.error(error);
     }
 
-    if (isFile) {
+    if (isFile!) {
       try {
         const imageBuffer = await fs.readFile(path.resolve(image.path));
 
         base64 = imageBuffer.toString('base64')
       }
       catch (error) {
-        throw new Error(error);
+        console.error(error);
       }
     }
   }
