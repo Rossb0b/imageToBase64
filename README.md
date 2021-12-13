@@ -25,13 +25,10 @@ interface ResponsePayload {
 
 ```js
 async function main() {
-  try {
-    const imageBase64WithFile = await encoder.toBase64({ path: "./hdm-panda-chine.jpg" });
+  const imageBase64WithFile = await encoder.toBase64({ path: "./hdm-panda-chine.jpg" });
 
-    const imageBase64WithURI = await encoder.toBase64({ uri: "https://www.ecosia.org/images?q=panda#id=9E3AE73E84FAAFFC7DD4D3725F33ADFD2346CA77" })
-  } catch (error) {
-    throw new Error(error);
-  }
+  const imageBase64WithURI = await encoder.toBase64({ uri: "https://www.ecosia.org/images?q=panda#id=9E3AE73E84FAAFFC7DD4D3725F33ADFD2346CA77" })
 }
+
 main().catch(console.error);
 ```
