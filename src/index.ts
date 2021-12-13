@@ -23,34 +23,18 @@ export async function toBase64(image: Image): Promise<ResponsePayload> {
   if (image.uri) {
     const uri = new URL(image.uri!);
 
-    try {
-      const imageBuffer = await (await fetch(uri)).buffer();
+    const imageBuffer = await (await fetch(uri)).buffer();
 
-      base64 = imageBuffer.toString('base64');
-    }
-    catch (error) {
-      console.error(error);
-    }
+    base64 = imageBuffer.toString('base64');
   }
   else if (image.path && imageRegex.test(image.path)) {
     let isFile: boolean;
 
-    try {
-      isFile = (await fs.stat(image.path)).isFile();
-    }
-    catch (error) {
-      console.error(error);
-    }
-
+    isFile = (await fs.stat(image.path)).isFile();
     if (isFile!) {
-      try {
-        const imageBuffer = await fs.readFile(path.resolve(image.path));
+      const imageBuffer = await fs.readFile(path.resolve(image.path));
 
-        base64 = imageBuffer.toString('base64')
-      }
-      catch (error) {
-        console.error(error);
-      }
+      base64 = imageBuffer.toString('base64');
     }
   }
   else {
