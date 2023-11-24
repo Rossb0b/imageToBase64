@@ -1,14 +1,14 @@
-// Require Node Dependencies
-import * as fs from "fs/promises";
-import * as path from "path";
+// Import Node.js Dependencies
+import * as fs from "node:fs/promises";
+import * as path from "node:path";
 
-// Require External Dependencies
+// Import Third-Party Dependencies
 import fetch from "node-fetch";
 
-// Vars
-const imageRegex = new RegExp("\.(gif|jpe?g|tiff?|png|webp|bmp|ico)$", "i");
+// CONSTANTS
+const mediaRegex = new RegExp("\.(gif|jpe?g|tiff?|png|webp|bmp|ico|wav|mp3|mp4)$", "i");
 
-export interface Image {
+export interface Media {
   path?: string,
   uri?: string,
 }
@@ -17,28 +17,28 @@ export interface ResponsePayload {
   base64?: string
 }
 
-export async function toBase64(image: Image): Promise<ResponsePayload> {
+export async function toBase64(media: Media): Promise<ResponsePayload> {
   let base64: string = "";
 
-  if (image.uri) {
-    const uri = new URL(image.uri!);
+  if (media.uri) {
+    const uri = new URL(media.uri!);
 
     const imageBuffer = await (await fetch(uri)).buffer();
 
     base64 = imageBuffer.toString('base64');
   }
-  else if (image.path && imageRegex.test(image.path)) {
+  else if (media.path && mediaRegex.test(media.path)) {
     let isFile: boolean;
 
-    isFile = (await fs.stat(image.path)).isFile();
+    isFile = (await fs.stat(media.path)).isFile();
     if (isFile!) {
-      const imageBuffer = await fs.readFile(path.resolve(image.path));
+      const imageBuffer = await fs.readFile(path.resolve(media.path));
 
       base64 = imageBuffer.toString('base64');
     }
   }
   else {
-    throw new Error("Didn\'t get an image or a good uri for the appropriate param");
+    throw new Error("Didn't get any valid media or uri.");
   }
 
   return { base64 };
