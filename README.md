@@ -1,5 +1,10 @@
-# imageToBase64
-Encode image from uri or image file to base64 on Node.js
+<p align="center"><h1 align="center">
+  imageToBase64
+</h1></p>
+
+<p align="center">
+  Encode image from uri or image file to base64 on Node.js
+</p>
 
 ## Installation
 ```$ npm install @rossbob/image-to-base64```
@@ -13,7 +18,7 @@ Encode image from uri or image file to base64 on Node.js
 ### toBase64(image: Image): Promise<ResponsePayload>
 
 ```ts
-interface Image {
+interface Media {
   path?: string,
   uri?: string,
 }
@@ -24,10 +29,12 @@ interface ResponsePayload {
 ```
 
 ```js
-async function main() {
-  const imageBase64WithFile = await encoder.toBase64({ path: "./hdm-panda-chine.jpg" });
+import { toBase64 } from "@rossbob/image-to-base64";
 
-  const imageBase64WithURI = await encoder.toBase64({ uri: "https://www.ecosia.org/images?q=panda#id=9E3AE73E84FAAFFC7DD4D3725F33ADFD2346CA77" })
+async function main() {
+  const imageBase64WithFile = await toBase64({ path: "./hdm-panda-chine.jpg" });
+
+  const imageBase64WithURI = await toBase64({ uri: "https://www.ecosia.org/images?q=panda#id=9E3AE73E84FAAFFC7DD4D3725F33ADFD2346CA77" })
 }
 
 main().catch(console.error);
