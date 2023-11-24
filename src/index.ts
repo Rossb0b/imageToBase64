@@ -6,7 +6,7 @@ import * as path from "node:path";
 import fetch from "node-fetch";
 
 // CONSTANTS
-const mediaRegex = new RegExp("\.(gif|jpe?g|tiff?|png|webp|bmp|ico|wav|mp3|mp4)$", "i");
+const mediaRegex = new RegExp(".(gif|jpe?g|tiff?|png|webp|bmp|ico|wav|mp3|mp4)$", "i");
 
 export interface Media {
   path?: string,
