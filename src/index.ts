@@ -23,7 +23,9 @@ export async function toBase64(media: Media): Promise<ResponsePayload> {
   if (media.uri) {
     const uri = new URL(media.uri!);
 
-    const imageBuffer = await (await fetch(uri)).buffer();
+    const image = await fetch(uri);
+
+    const imageBuffer = await image.buffer();
 
     base64 = imageBuffer.toString('base64');
   }
