@@ -13,11 +13,7 @@ export interface Media {
   uri?: string,
 }
 
-export interface ResponsePayload {
-  base64?: string
-}
-
-export async function toBase64(media: Media): Promise<ResponsePayload> {
+export async function toBase64(media: Media): Promise<string> {
   let base64: string = "";
 
   if (media.uri) {
@@ -43,5 +39,5 @@ export async function toBase64(media: Media): Promise<ResponsePayload> {
     throw new Error("Didn't get any valid media or uri.");
   }
 
-  return { base64 };
+  return base64;
 }
