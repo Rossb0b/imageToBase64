@@ -24,12 +24,12 @@ describe("encode image to base64", () => {
   });
 
     it("should return a base64 string for a good uri", async () => {
-      const { base64 } = await toBase64({ uri: "https://www.ecosia.org/images?q=panda#id=9E3AE73E84FAAFFC7DD4D3725F33ADFD2346CA77" });
+      const base64 = await toBase64({ uri: "https://www.ecosia.org/images?q=panda#id=9E3AE73E84FAAFFC7DD4D3725F33ADFD2346CA77" });
       expect(base64).toBeDefined();
   });
 
   it("should return a base64 string for a good path", async () => {
-    const { base64 } = await toBase64({ path: "hdm-panda-chine.jpg" });
+    const base64 = await toBase64({ path: "hdm-panda-chine.jpg" });
     expect(base64).toBeDefined();
   });
 });
