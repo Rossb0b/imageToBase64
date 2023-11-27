@@ -3,7 +3,7 @@
 </h1></p>
 
 <p align="center">
-  Encode image from uri or image file to base64 on Node.js
+  Encode Media from uri or file to base64 on Node.js
 </p>
 
 ## Installation
@@ -15,16 +15,12 @@
 
 ## Usage
 
-### toBase64(image: Image): Promise<ResponsePayload>
+### toBase64(image: Media): Promise<string>
 
 ```ts
 interface Media {
   path?: string,
   uri?: string,
-}
-
-interface ResponsePayload {
-  base64?: string
 }
 ```
 
